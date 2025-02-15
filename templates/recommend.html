@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>📖 ShelfShuffle 📚 - Book Recommender System</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom Styling -->
+    <style>
+        body {
+            background-color: #121212; 
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #00a65a;
+            padding: 15px;
+        }
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: white !important;
+        }
+        .nav-link {
+            color: white !important;
+            font-size: 18px;
+            margin-right: 10px;
+            transition: 0.3s;
+        }
+        .nav-link:hover {
+            color: #000 !important;
+            background: white;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+        /* Header */
+        .header-title {
+            font-size: 42px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Form Styling */
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-control {
+            font-size: 18px;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+        }
+        .btn-recommend {
+            font-size: 18px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            background-color: #ffc107;
+            border: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-recommend:hover {
+            background-color: #e0a800;
+        }
+
+        /* Book Card Styling */
+        .book-card {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .book-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(255, 255, 255, 0.2);
+        }
+        .book-img {
+            border-radius: 8px;
+            max-height: 250px;
+            object-fit:inherit;
+            width: 100%;
+        }
+        .book-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .book-author {
+            font-size: 16px;
+            text-align: center;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">📖 ShelfShuffle 📚 - Book Recommender</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                   
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mt-5">
+        
+        <h1 class="header-title">Recommend Books</h1>
+
+        <!-- Recommendation Form -->
+        <div class="search-box">
+            <form action="/recommend_books" method="post">
+                <input name="user_input" type="text" class="form-control" placeholder="📖 Enter a book you love ❤️">
+                <br>
+                <button type="submit" class="btn btn-lg btn-warning btn-recommend w-100">Recommend 📚</button>
+            </form>
+        </div>
+
+        {% if data %}
+        <!-- Book Recommendations -->
+        <div class="row mt-5">
+            {% for i in data %}
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+                    <div class="book-card">
+                        <img class="book-img" src="{{ i[2] }}" alt="Book Cover">
+                        <p class="book-title">{{ i[0] }}</p>
+                        <h5 class="book-author">{{ i[1] }}</h5>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
